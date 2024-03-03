@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -41,13 +42,11 @@ class Person {
   }
 
   String getFullName() {
-    // string interpolation
     return '${getName()} ${getSurname()}';
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  // compile-time constant
   const MyHomePage();
 
   @override
@@ -55,6 +54,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var _buttonClicked = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,8 +65,17 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              NameCard(Person('Sofiia')),
+              ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    _buttonClicked = true;
+                  });
+                },
+                label: Text(_buttonClicked ? 'Not me :)' : 'Click me'),
+                icon: Icon(Icons.arrow_downward),
+              ),
               NameCard(Person.sofiia()),
+              NameCard(Person('for')),
               NameCard(Person('Empat', 'School')),
             ],
           ),
@@ -83,6 +93,26 @@ class NameCard extends StatefulWidget {
 }
 
 class _NameCardState extends State<NameCard> {
+  Color? _color;
+
+  Color getColor() {
+    return _color ?? Colors.indigo;
+  }
+
+  void setColor(Color color) {
+    setState(() {
+      _color = color;
+    });
+  }
+
+  void setRandomColor() {
+    setColor(getRandomColor());
+  }
+
+  Color getRandomColor() {
+    return Colors.primaries[Random().nextInt(Colors.primaries.length)];
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -91,15 +121,10 @@ class _NameCardState extends State<NameCard> {
     );
 
     return Card(
-        color: theme.colorScheme.primary,
+        color: _color ?? Colors.indigo,
         child: InkWell(
           onTap: () {
-            setState(() {
-              final name = widget._person.getName();
-              if (name.length > 1) {
-                widget._person.setName(name.substring(0, name.length - 1));
-              }
-            });
+            setRandomColor();
           },
           splashColor: theme.buttonTheme.colorScheme?.onPrimary,
           child: Padding(
