@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,8 +10,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Hello, World!',
-        home: MyHomePage(),
+      title: 'Hello, World!',
+      home: MyHomePage(),
     );
   }
 }
@@ -92,13 +91,23 @@ class _NameCardState extends State<NameCard> {
     );
 
     return Card(
-      color: theme.colorScheme.primary,
-      child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Text(
-            widget._person.getFullName(),
-            style: style,
-          )),
-    );
+        color: theme.colorScheme.primary,
+        child: InkWell(
+          onTap: () {
+            setState(() {
+              final name = widget._person.getName();
+              if (name.length > 1) {
+                widget._person.setName(name.substring(0, name.length - 1));
+              }
+            });
+          },
+          splashColor: theme.buttonTheme.colorScheme?.onPrimary,
+          child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                widget._person.getFullName(),
+                style: style,
+              )),
+        ));
   }
 }
