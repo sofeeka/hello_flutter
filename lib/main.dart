@@ -63,7 +63,6 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ElevatedButton.icon(
                 onPressed: () {
@@ -117,11 +116,11 @@ class _NameCardState extends State<NameCard> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
+      color: ColorScheme.fromSeed(seedColor: getColor()).onPrimary,
     );
 
     return Card(
-        color: _color ?? Colors.indigo,
+        color: getColor(),
         child: InkWell(
           onTap: () {
             setRandomColor();
