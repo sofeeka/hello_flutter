@@ -21,28 +21,26 @@ class Person {
   String _name;
   String? _surname;
 
-  Person(this._name, [this._surname]);
+  Person({required String name, String? surname})
+      : _name = name,
+        _surname = surname;
 
-  Person.sofiia() : this('Sofiia', 'Hrychukh');
+  Person.sofiia() : this(name: 'Sofiia', surname: 'Hrychukh');
 
-  void setName(String name) {
+  set name(String name) {
     _name = name;
   }
 
-  void setSurname(String surname) {
+  set surname(String surname) {
     _surname = surname;
   }
 
-  String getName() {
-    return _name;
-  }
+  String get name => _name;
 
-  String getSurname() {
-    return _surname ?? '';
-  }
+  String get surname => _surname ?? '';
 
   String getFullName() {
-    return '${getName()} ${getSurname()}';
+    return '$name $surname';
   }
 }
 
@@ -74,8 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.arrow_downward),
               ),
               NameCard(Person.sofiia()),
-              NameCard(Person('for')),
-              NameCard(Person('Empat', 'School')),
+              NameCard(Person(name: 'for')),
+              NameCard(Person(name: 'Empat', surname: 'School')),
             ],
           ),
         ));
