@@ -42,7 +42,7 @@ void workWithCollections() {
   map.removeWhere((key, value) => value.length > 3);
   print('removeWhere: $map');
 
-  //set
+  // set
   var set = <int>{1, 2, 3, 4, 5};
   print('set: $set');
 
@@ -72,7 +72,7 @@ class Person {
   String _name;
   String? _surname;
 
-  Person({required String name, String? surname})
+  Person({required String name, String? surname })
       : _name = name,
         _surname = surname {
     assert(name.isNotEmpty);
@@ -188,7 +188,7 @@ class _NameCardState extends State<NameCard> {
       };
 
   void setRandomColor() {
-    Color? _priorColor = _color;
+    Color? _priorColor;
 
     Color getRandomColor() {
       var newColor;
@@ -197,6 +197,7 @@ class _NameCardState extends State<NameCard> {
         newColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
       } while (newColor == _priorColor);
 
+      _priorColor = newColor;
       return newColor!;
     }
 
